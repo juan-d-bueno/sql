@@ -1,4 +1,5 @@
 # Assignment 2: Design a Logical Model and Advanced SQL
+# Student: Juan Diego Bueno
 
 🚨 **Please review our [Assignment Submission Guide](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md)** 🚨 for detailed instructions on how to format, branch, and submit your work. Following these guidelines is crucial for your submissions to be evaluated correctly.
 
@@ -31,6 +32,31 @@ Steps to complete this part of the assignment:
 - Duplicate the logical data model and add another table to it following the instructions
 - Write, within this markdown file, an answer to Prompt 3
 
+### Bookstore Model Context
+
+Tables ---
+
+employee: the table includes ID, names, the current job position, and the contact mobile number.
+
+book_price: book prices were put in a separate table, since is data you'll like to track historically it includes date, as well as diferent price points for ease in case of promotions or quick price changes.
+
+books: includes all book characteristics in case we need to filter by them.
+
+employee_shifts: includes date and time when the shift line was created, and the manager responsible creating it. 
+
+sales: sale_id defines a customer trip to the store, that may include multiple items (sale_item). It also includes, employee that sold, customer, book, quantity and time.
+
+stock: its our inventory, type2 to keep historical data, which is important to understand trends.
+
+date: date and time, including which days are holidays or promo days, to be able to model impact of both.
+
+order: are the order we place to our book vendors.
+
+vendor: our vendors' data.
+
+postal_code: all demographic data.
+
+customer: all our customer data, including in model type 1 and type 2 options. 
 
 ###  Design a Logical Model
 
@@ -54,7 +80,15 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+I'm proposing both options attached in the model PDF.
+Type1: Is without historical data, simply overwriting the existing address, just putting an Address variable in the customer table.
+
+Type2: Is with historical data, creating an extra table customer_address, and including 3 more variables:
+1. Start date for address (start_date)
+2. End date for address (end_date)
+3. Boolean to let us understand if its current address or not. (is_current)
+
+Recommendation: Go for a type1. Type2 can get big and consume more resources for a data that is not important to have historically.
 ```
 
 ***
@@ -85,6 +119,7 @@ But wait! The product table has some bad data (a few NULL values).
 Find the NULLs and then using COALESCE, replace the NULL with a blank for the first column with nulls, and 'unit' for the second column with nulls. 
 
 **HINT**: keep the syntax the same, but edited the correct components with the string. The `||` values concatenate the columns into strings. Edit the appropriate columns -- you're making two edits -- and the NULL rows will be fixed. All the other rows will remain the same.
+
 
 <div align="center">-</div>
 
